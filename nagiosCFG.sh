@@ -1,7 +1,7 @@
 #!/bin/bash
 # Nagios Core 4.0.1 Install on Debian Wheezy
 # Author: John McCarthy
-# Date: November 23, 2013
+# Date: November 25, 2013
 #
 # To God only wise, be glory through Jesus Christ forever. Amen.
 # Romans 16:27, I Corinthians 15:1-4
