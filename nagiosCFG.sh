@@ -345,7 +345,7 @@ function nrpe()
   echo ''
   echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
   echo ''
-  wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz
+  wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz/
   echo ''
   echo -e '\e[01;37;42mThe NRPE installation files were successfully downloaded!\e[0m'
 
@@ -354,7 +354,7 @@ function nrpe()
   echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
   echo ''
   tar xzf nrpe-2.15.tar.gz
-  cd nagios-4.0.1
+  cd nrpe-2.15
   echo ''
   echo -e '\e[01;37;42mThe NRPE installation files were successfully untarred!\e[0m'
 
