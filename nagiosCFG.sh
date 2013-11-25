@@ -345,7 +345,7 @@ function nrpe()
   echo ''
   echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
   echo ''
-  wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz/download
+  wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz
   echo ''
   echo -e '\e[01;37;42mThe NRPE installation files were successfully downloaded!\e[0m'
 
