@@ -1,7 +1,7 @@
 #!/bin/bash
 # Nagios Core 4.0.2 Install on Debian Wheezy
 # Author: John McCarthy
-# Date: November 26, 2013
+# Date: November 18, 2013
 #
 # To God only wise, be glory through Jesus Christ forever. Amen.
 # Romans 16:27, I Corinthians 15:1-4
@@ -396,19 +396,19 @@ function emailNotifications()
 function webSSL()
 {
 	#Make Your Self-signed Certificates
-	echo -e '\e[33mChoose your Certificates Name\e[0m'
-	read CERT
-	mkdir /etc/apache2/ssl
-	cd /etc/apache2/ssl
-	openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $CERT.key -out $CERT.crt
-	a2enmod ssl
+		echo -e '\e[33mChoose your Certificates Name\e[0m'
+		read CERT
+		mkdir /etc/apache2/ssl
+		cd /etc/apache2/ssl
+		openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $CERT.key -out $CERT.crt
+		a2enmod ssl
 
 	#Configure /etc/apache2/conf.d/nagios.conf
-	sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
+		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
 
 	#Configure /etc/apache2/sites-available/default
-	echo -e '\e[33mChoose your Server Admin Email Address\e[0m'
-	read EMAIL
+		echo -e '\e[33mChoose your Server Admin Email Address\e[0m'
+		read EMAIL
 cat <<EOF > /etc/apache2/sites-available/default
 <VirtualHost *:443>
     ServerAdmin $EMAIL
@@ -459,7 +459,7 @@ function doAll()
         fi
 
 	#Calls Function 'nagiosBoot'
-	echo
+		echo
         echo -e "\e[33m=== Start Nagios Server at Boot Time ? (y/n)\e[0m"
         read yesno
         if [ "$yesno" = "y" ]; then
