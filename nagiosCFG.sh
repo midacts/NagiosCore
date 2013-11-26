@@ -60,7 +60,7 @@ function nagiosCore()
 function webUIpassword()
 {
 	#Create a user to access the Nagios Web UI
-        echo -e '\e[33mChoose your Nagios Web UI Username\e[0m'
+        	echo -e '\e[33mChoose your Nagios Web UI Username\e[0m'
 		read webUser
 
 	# Use this command to add subsequent users later on (eliminate the '-c' switch, which creates the file)
@@ -71,13 +71,13 @@ function webUIpassword()
 	#Changes the Ownership of the htpasswd.users file
 		chown nagios:nagcmd /usr/local/nagios/etc/htpasswd.users
 		echo ''
-        echo -e '\e[01;37;42mNagios Web UI Username and password successfully created!\e[0m'
+        	echo -e '\e[01;37;42mNagios Web UI Username and password successfully created!\e[0m'
 }
 function nagiosBoot()
 {
 		echo ''
-        echo -e '\e[01;34m+++ Creating Nagios Init File...\e[0m'
-        echo ''
+        	echo -e '\e[01;34m+++ Creating Nagios Init File...\e[0m'
+        	echo ''
 
 	#Adding in the old init script, as the one included with 4.0.2 has a bug in it
 	#http://stackoverflow.com/questions/19606049/nagios-4-cant-open-etc-rc-d-init-d-functions
@@ -310,15 +310,15 @@ EOT
 	#Restart the Nagios service
 		service nagios restart
 		echo ''
-        echo -e '\e[01;37;42mNagios has been configured to start at boot time!\e[0m'
+        	echo -e '\e[01;37;42mNagios has been configured to start at boot time!\e[0m'
 }
 function nagiosPlugin()
 {
 	#Download the Latest Nagios Plugin Files (1.4.16)
 		echo ''
-        echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
+        	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
 		echo ''
-        wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+        	wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
 		echo -e '\e[01;37;42mThe Latest Nagios Plugins have been acquired!\e[0m'
 
 	#Untarring the Nagios Plugin File
@@ -445,58 +445,58 @@ function doAll()
 {
     #Calls Function 'nagioscore'
 		echo -e "\e[33m=== Install Nagios Core ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                nagiosCore
-        fi
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+                	nagiosCore
+	        fi
 
 	#Calls Function 'webUIpassword'
-        echo
-        echo -e "\e[33m=== Add Nagios Web UI Password ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                webUIpassword
-        fi
+        	echo
+        	echo -e "\e[33m=== Add Nagios Web UI Password ? (y/n)\e[0m"
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+                	webUIpassword
+        	fi
 
 	#Calls Function 'nagiosBoot'
 		echo
-        echo -e "\e[33m=== Start Nagios Server at Boot Time ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                nagiosBoot
-        fi
+        	echo -e "\e[33m=== Start Nagios Server at Boot Time ? (y/n)\e[0m"
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+	                nagiosBoot
+	        fi
 
 	#Calls Function 'nagiosPlugin'
-        echo
-        echo -e "\e[33m=== Install the Nagios Plugins ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                nagiosPlugin
-        fi
+        	echo
+        	echo -e "\e[33m=== Install the Nagios Plugins ? (y/n)\e[0m"
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+                	nagiosPlugin
+        	fi
 
 	#Calls Function 'nrpe'
-        echo
-        echo -e "\e[33m=== Install NRPE ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                nrpe
-        fi
+        	echo
+        	echo -e "\e[33m=== Install NRPE ? (y/n)\e[0m"
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+                	nrpe
+        	fi
 
 	#Calls Function 'emailNotifications'
-        echo
-        echo -e "\e[33m=== Edit Nagios Email Notification Settings ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                emailNotifications
-        fi
+        	echo
+        	echo -e "\e[33m=== Edit Nagios Email Notification Settings ? (y/n)\e[0m"
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+                	emailNotifications
+	        fi
 
 	#Calls Function 'webSSL'
 		echo
-        echo -e "\e[33m=== Configure Nagios Web UI to use SSL (HTTPS) ? (y/n)\e[0m"
-        read yesno
-        if [ "$yesno" = "y" ]; then
-                webSSL
-        fi
+        	echo -e "\e[33m=== Configure Nagios Web UI to use SSL (HTTPS) ? (y/n)\e[0m"
+        	read yesno
+        	if [ "$yesno" = "y" ]; then
+                	webSSL
+        	fi
 
 	#End of Script Congratulations, Farewell and Additional Information
 		FARE=$(cat << 'EOD'
