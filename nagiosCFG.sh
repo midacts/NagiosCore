@@ -1,7 +1,7 @@
 #!/bin/bash
-# Nagios Core 4.0.1 Install on Debian Wheezy
+# Nagios Core 4.0.2 Install on Debian Wheezy
 # Author: John McCarthy
-# Date: November 25, 2013
+# Date: November 26, 2013
 #
 # To God only wise, be glory through Jesus Christ forever. Amen.
 # Romans 16:27, I Corinthians 15:1-4
@@ -9,78 +9,78 @@
 ######## FUNCTIONS ########
 function nagiosCore()
 {
- #Add Nagios Users and Groups
-  echo ''
-  echo -e '\e[01;34m+++ Adding Nagios Users and Groups...\e[0m'
-  echo ''
-  groupadd -g 9000 nagios
-  groupadd -g 9001 nagcmd
-  useradd -u 9000 -g nagios -G nagcmd -d /usr/local/nagios -c 'Nagios Admin' nagios
-  adduser www-data nagcmd
-  echo ''
-  echo -e '\e[01;37;42mThe Nagios users and groups have been successfully added!\e[0m'
+	#Add Nagios Users and Groups
+		echo ''
+		echo -e '\e[01;34m+++ Adding Nagios Users and Groups...\e[0m'
+		echo ''
+		groupadd -g 9000 nagios
+		groupadd -g 9001 nagcmd
+		useradd -u 9000 -g nagios -G nagcmd -d /usr/local/nagios -c 'Nagios Admin' nagios
+		adduser www-data nagcmd
+		echo ''
+		echo -e '\e[01;37;42mThe Nagios users and groups have been successfully added!\e[0m'
 
- #Install Require Packages
-  echo ''
-  echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
-  echo ''
-  apt-get update
-  apt-get install -y apache2 libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
-  echo ''
-  echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
+	#Install Require Packages
+		echo ''
+		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
+		echo ''
+		apt-get update
+		apt-get install -y apache2 libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
+		echo ''
+		echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
 
- #Download latest Nagios Core Version (4.0.2)
-  echo ''
-  echo -e '\e[01;34m+++ Downloading the Latest Nagios Core files...\e[0m'
-  echo ''
-  wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-4.0.2.tar.gz
-  echo -e '\e[01;37;42mThe Nagios Core installation files were successfully downloaded!\e[0m'
+	#Download latest Nagios Core Version (4.0.2)
+		echo ''
+		echo -e '\e[01;34m+++ Downloading the Latest Nagios Core files...\e[0m'
+		echo ''
+		wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-4.0.2.tar.gz
+		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully downloaded!\e[0m'
 
- #Untarring the Nagios Core File
-  echo ''
-  echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
-  tar xzf nagios-4.0.2.tar.gz
-  cd nagios-4.0.2
-  echo ''
-  echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
+	#Untarring the Nagios Core File
+		echo ''
+		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
+		tar xzf nagios-4.0.2.tar.gz
+		cd nagios-4.0.2
+		echo ''
+		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
 
- #Configure and Install Nagios Core
-  echo ''
-  echo -e '\e[01;34m+++ Installing Nagios Core...\e[0m'
-  echo ''
-  ./configure --prefix=/usr/local/nagios --with-nagios-user=nagios --with-nagios-group=nagios --with-command-user=nagios --with-command-group=nagcmd
-  make all
-  make install
-  make install-init
-  make install-config
-  make install-commandmode
-  make install-webconf
-  echo -e '\e[01;37;42mNagios Core has been successfully installed!\e[0m'
+	#Configure and Install Nagios Core
+		echo ''
+		echo -e '\e[01;34m+++ Installing Nagios Core...\e[0m'
+		echo ''
+		./configure --prefix=/usr/local/nagios --with-nagios-user=nagios --with-nagios-group=nagios --with-command-user=nagios --with-command-group=nagcmd
+		make all
+		make install
+		make install-init
+		make install-config
+		make install-commandmode
+		make install-webconf
+		echo -e '\e[01;37;42mNagios Core has been successfully installed!\e[0m'
 }
 function webUIpassword()
 {
- #Create a user to access the Nagios Web UI
+	#Create a user to access the Nagios Web UI
         echo -e '\e[33mChoose your Nagios Web UI Username\e[0m'
-  read webUser
+		read webUser
 
- # Use this command to add subsequent users later on (eliminate the '-c' switch, which creates the file)
- # htpasswd /usr/local/nagios/etc/htpasswd.users username
- # **NOTE** users will only see hots/services for which they are contacts <http://nagios.sourceforge.net/docs/nagioscore/3/en/cgiauth.html>
-  htpasswd -c /usr/local/nagios/etc/htpasswd.users $webUser
+	# Use this command to add subsequent users later on (eliminate the '-c' switch, which creates the file)
+	# htpasswd /usr/local/nagios/etc/htpasswd.users username
+	# **NOTE** users will only see hots/services for which they are contacts <http://nagios.sourceforge.net/docs/nagioscore/3/en/cgiauth.html>
+		htpasswd -c /usr/local/nagios/etc/htpasswd.users $webUser
 
- #Changes the Ownership of the htpasswd.users file
-  chown nagios:nagcmd /usr/local/nagios/etc/htpasswd.users
-  echo ''
+	#Changes the Ownership of the htpasswd.users file
+		chown nagios:nagcmd /usr/local/nagios/etc/htpasswd.users
+		echo ''
         echo -e '\e[01;37;42mNagios Web UI Username and password successfully created!\e[0m'
 }
 function nagiosBoot()
 {
-  echo ''
+		echo ''
         echo -e '\e[01;34m+++ Creating Nagios Init File...\e[0m'
         echo ''
 
- #Adding in the old init script, as the one included with 4.0.1 has a bug in it
- #http://stackoverflow.com/questions/19606049/nagios-4-cant-open-etc-rc-d-init-d-functions
+	#Adding in the old init script, as the one included with 4.0.2 has a bug in it
+	#http://stackoverflow.com/questions/19606049/nagios-4-cant-open-etc-rc-d-init-d-functions
 
 cat << 'EOT' > /etc/init.d/nagios
 #!/bin/sh
@@ -98,45 +98,45 @@ cat << 'EOT' > /etc/init.d/nagios
 
 # Load any extra environment variables for Nagios and its plugins
 if test -f /etc/sysconfig/nagios; then
- . /etc/sysconfig/nagios
+	. /etc/sysconfig/nagios
 fi
 
 status_nagios ()
 {
 
- if test -x $NagiosCGI/daemonchk.cgi; then
-  if $NagiosCGI/daemonchk.cgi -l $NagiosRunFile; then
-          return 0
-  else
-   return 1
-  fi
- else
-  if ps -p $NagiosPID > /dev/null 2>&1; then
-          return 0
-  else
-   return 1
-  fi
- fi
+	if test -x $NagiosCGI/daemonchk.cgi; then
+		if $NagiosCGI/daemonchk.cgi -l $NagiosRunFile; then
+		        return 0
+		else
+			return 1
+		fi
+	else
+		if ps -p $NagiosPID > /dev/null 2>&1; then
+		        return 0
+		else
+			return 1
+		fi
+	fi
 
- return 1
+	return 1
 }
 
 
 printstatus_nagios()
 {
 
- if status_nagios $1 $2; then
-  echo "nagios (pid $NagiosPID) is running..."
- else
-  echo "nagios is not running"
- fi
+	if status_nagios $1 $2; then
+		echo "nagios (pid $NagiosPID) is running..."
+	else
+		echo "nagios is not running"
+	fi
 }
 
 
 killproc_nagios ()
 {
 
- kill $2 $NagiosPID
+	kill $2 $NagiosPID
 
 }
 
@@ -144,21 +144,21 @@ killproc_nagios ()
 pid_nagios ()
 {
 
- if test ! -f $NagiosRunFile; then
-  echo "No lock file found in $NagiosRunFile"
-  exit 1
- fi
+	if test ! -f $NagiosRunFile; then
+		echo "No lock file found in $NagiosRunFile"
+		exit 1
+	fi
 
- NagiosPID=`head -n 1 $NagiosRunFile`
+	NagiosPID=`head -n 1 $NagiosRunFile`
 }
 
 
 # Source function library
 # Solaris doesn't have an rc.d directory, so do a test first
 if [ -f /etc/rc.d/init.d/functions ]; then
- . /etc/rc.d/init.d/functions
+	. /etc/rc.d/init.d/functions
 elif [ -f /etc/init.d/functions ]; then
- . /etc/init.d/functions
+	. /etc/init.d/functions
 fi
 
 prefix=/usr/local/nagios
@@ -192,209 +192,223 @@ fi
 # See how we were called.
 case "$1" in
 
- start)
-  echo -n "Starting nagios:"
-  $NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
-  if [ $? -eq 0 ]; then
-   su - $NagiosUser -c "touch $NagiosVarDir/nagios.log $NagiosRetentionFile"
-   rm -f $NagiosCommandFile
-   touch $NagiosRunFile
-   chown $NagiosUser:$NagiosGroup $NagiosRunFile
-   $NagiosBin -d $NagiosCfgFile
-   if [ -d $NagiosLockDir ]; then touch $NagiosLockDir/$NagiosLockFile; fi
-   echo " done."
-   exit 0
-  else
-   echo "CONFIG ERROR!  Start aborted.  Check your Nagios configuration."
-   exit 1
-  fi
-  ;;
+	start)
+		echo -n "Starting nagios:"
+		$NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
+		if [ $? -eq 0 ]; then
+			su - $NagiosUser -c "touch $NagiosVarDir/nagios.log $NagiosRetentionFile"
+			rm -f $NagiosCommandFile
+			touch $NagiosRunFile
+			chown $NagiosUser:$NagiosGroup $NagiosRunFile
+			$NagiosBin -d $NagiosCfgFile
+			if [ -d $NagiosLockDir ]; then touch $NagiosLockDir/$NagiosLockFile; fi
+			echo " done."
+			exit 0
+		else
+			echo "CONFIG ERROR!  Start aborted.  Check your Nagios configuration."
+			exit 1
+		fi
+		;;
 
- stop)
-  echo -n "Stopping nagios: "
+	stop)
+		echo -n "Stopping nagios: "
 
-  pid_nagios
-  killproc_nagios nagios
+		pid_nagios
+		killproc_nagios nagios
 
-   # now we have to wait for nagios to exit and remove its
-   # own NagiosRunFile, otherwise a following "start" could
-   # happen, and then the exiting nagios will remove the
-   # new NagiosRunFile, allowing multiple nagios daemons
-   # to (sooner or later) run - John Sellens
-  #echo -n 'Waiting for nagios to exit .'
-   for i in 1 2 3 4 5 6 7 8 9 10 ; do
-       if status_nagios > /dev/null; then
-    echo -n '.'
-    sleep 1
-       else
-    break
-       fi
-   done
-   if status_nagios > /dev/null; then
-       echo ''
-       echo 'Warning - nagios did not exit in a timely manner'
-   else
-       echo 'done.'
-   fi
+ 		# now we have to wait for nagios to exit and remove its
+ 		# own NagiosRunFile, otherwise a following "start" could
+ 		# happen, and then the exiting nagios will remove the
+ 		# new NagiosRunFile, allowing multiple nagios daemons
+ 		# to (sooner or later) run - John Sellens
+		#echo -n 'Waiting for nagios to exit .'
+ 		for i in 1 2 3 4 5 6 7 8 9 10 ; do
+ 		    if status_nagios > /dev/null; then
+ 			echo -n '.'
+ 			sleep 1
+ 		    else
+ 			break
+ 		    fi
+ 		done
+ 		if status_nagios > /dev/null; then
+ 		    echo ''
+ 		    echo 'Warning - nagios did not exit in a timely manner'
+ 		else
+ 		    echo 'done.'
+ 		fi
 
-  rm -f $NagiosStatusFile $NagiosRunFile $NagiosLockDir/$NagiosLockFile $NagiosCommandFile
-  ;;
+		rm -f $NagiosStatusFile $NagiosRunFile $NagiosLockDir/$NagiosLockFile $NagiosCommandFile
+		;;
 
- status)
-  pid_nagios
-  printstatus_nagios nagios
-  ;;
+	status)
+		pid_nagios
+		printstatus_nagios nagios
+		;;
 
- checkconfig)
-  printf "Running configuration check..."
-  $NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
-  if [ $? -eq 0 ]; then
-   echo " OK."
-  else
-   echo " CONFIG ERROR!  Check your Nagios configuration."
-   exit 1
-  fi
-  ;;
+	checkconfig)
+		printf "Running configuration check..."
+		$NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
+		if [ $? -eq 0 ]; then
+			echo " OK."
+		else
+			echo " CONFIG ERROR!  Check your Nagios configuration."
+			exit 1
+		fi
+		;;
 
- restart)
-  printf "Running configuration check..."
-  $NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
-  if [ $? -eq 0 ]; then
-   echo "done."
-   $0 stop
-   $0 start
-  else
-   echo " CONFIG ERROR!  Restart aborted.  Check your Nagios configuration."
-   exit 1
-  fi
-  ;;
+	restart)
+		printf "Running configuration check..."
+		$NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
+		if [ $? -eq 0 ]; then
+			echo "done."
+			$0 stop
+			$0 start
+		else
+			echo " CONFIG ERROR!  Restart aborted.  Check your Nagios configuration."
+			exit 1
+		fi
+		;;
 
- reload|force-reload)
-  printf "Running configuration check..."
-  $NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
-  if [ $? -eq 0 ]; then
-   echo "done."
-   if test ! -f $NagiosRunFile; then
-    $0 start
-   else
-    pid_nagios
-    if status_nagios > /dev/null; then
-     printf "Reloading nagios configuration..."
-     killproc_nagios nagios -HUP
-     echo "done"
-    else
-     $0 stop
-     $0 start
-    fi
-   fi
-  else
-   echo " CONFIG ERROR!  Reload aborted.  Check your Nagios configuration."
-   exit 1
-  fi
-  ;;
+	reload|force-reload)
+		printf "Running configuration check..."
+		$NagiosBin -v $NagiosCfgFile > /dev/null 2>&1;
+		if [ $? -eq 0 ]; then
+			echo "done."
+			if test ! -f $NagiosRunFile; then
+				$0 start
+			else
+				pid_nagios
+				if status_nagios > /dev/null; then
+					printf "Reloading nagios configuration..."
+					killproc_nagios nagios -HUP
+					echo "done"
+				else
+					$0 stop
+					$0 start
+				fi
+			fi
+		else
+			echo " CONFIG ERROR!  Reload aborted.  Check your Nagios configuration."
+			exit 1
+		fi
+		;;
 
- *)
-  echo "Usage: nagios {start|stop|restart|reload|force-reload|status|checkconfig}"
-  exit 1
-  ;;
+	*)
+		echo "Usage: nagios {start|stop|restart|reload|force-reload|status|checkconfig}"
+		exit 1
+		;;
 
 esac
 
 # End of this script
 EOT
 
- #Making the Nagios Init Script Executable
-  chmod +x /etc/init.d/nagios
-  update-rc.d nagios defaults
+	#Making the Nagios Init Script Executable
+		chmod +x /etc/init.d/nagios
+		update-rc.d nagios defaults
 
- #Restart the Nagios service
-  service nagios restart
-  echo ''
+	#Restart the Nagios service
+		service nagios restart
+		echo ''
         echo -e '\e[01;37;42mNagios has been configured to start at boot time!\e[0m'
 }
 function nagiosPlugin()
 {
- #Download the Latest Nagios Plugin Files (1.4.16)
-  echo ''
+	#Download the Latest Nagios Plugin Files (1.4.16)
+		echo ''
         echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
-  echo ''
+		echo ''
         wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
-  echo -e '\e[01;37;42mThe Latest Nagios Plugins have been acquired!\e[0m'
+		echo -e '\e[01;37;42mThe Latest Nagios Plugins have been acquired!\e[0m'
 
- #Untarring the Nagios Plugin File
-  echo ''
-  echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
-  tar xzf nagios-plugins-1.5.tar.gz
-  cd nagios-plugins-1.5
-  echo ''
-  echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
+	#Untarring the Nagios Plugin File
+		echo ''
+		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
+		tar xzf nagios-plugins-1.5.tar.gz
+		cd nagios-plugins-1.5
+		echo ''
+		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
 
- #Configure and Install Nagios Plugins
-  echo ''
-  echo -e '\e[01;34m+++ Installing Nagios Plugins...\e[0m'
-  echo ''
-  ./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl=/usr/bin/openssl --enable-perl-modules --enable-libtap
-  make
-  make install
-  echo ''
-  echo -e '\e[01;37;42mThe Nagios Plugins have been successfully installed!\e[0m'
+	#Configure and Install Nagios Plugins
+		echo ''
+		echo -e '\e[01;34m+++ Installing Nagios Plugins...\e[0m'
+		echo ''
+		./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl=/usr/bin/openssl --enable-perl-modules --enable-libtap
+		make
+		make install
+		echo ''
+		echo -e '\e[01;37;42mThe Nagios Plugins have been successfully installed!\e[0m'
 }
 function nrpe()
 {
- #Download latest NRPE Files (2.15)
-  echo ''
-  echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
-  echo ''
-  wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz/
-  echo ''
-  echo -e '\e[01;37;42mThe NRPE installation files were successfully downloaded!\e[0m'
+	#Download latest NRPE Files (2.15)
+		echo ''
+		echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
+		echo ''
+		wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz
+		echo ''
+		echo -e '\e[01;37;42mThe NRPE installation files were successfully downloaded!\e[0m'
 
- #Untarring the NRPE File
-  echo ''
-  echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
-  echo ''
-  tar xzf nrpe-2.15.tar.gz
-  cd nrpe-2.15
-  echo ''
-  echo -e '\e[01;37;42mThe NRPE installation files were successfully untarred!\e[0m'
+	#Untarring the NRPE File
+		echo ''
+		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
+		echo ''
+		tar xzf nrpe-2.15.tar.gz
+		cd nrpe-2.15
+		echo ''
+		echo -e '\e[01;37;42mThe NRPE installation files were successfully untarred!\e[0m'
 
- #Configure and Install NRPE
- #http://askubuntu.com/questions/133184/nagios-nrpe-installation-errorconfigure-error-cannot-find-ssl-libraries
-  echo ''
-  echo -e '\e[01;34m+++ Installing NRPE...\e[0m'
-  echo ''
-  ./configure --with-ssl=/usr/bin/openssl --with-ssl-lib=/usr/lib/x86_64-linux-gnu
-  make
-  make install
-  echo ''
-  echo -e '\e[01;37;42mNRPE has been successfully installed!\e[0m'
+	#Configure and Install NRPE
+	#http://askubuntu.com/questions/133184/nagios-nrpe-installation-errorconfigure-error-cannot-find-ssl-libraries
+		echo ''
+		echo -e '\e[01;34m+++ Installing NRPE...\e[0m'
+		echo ''
+		./configure --with-ssl=/usr/bin/openssl --with-ssl-lib=/usr/lib/x86_64-linux-gnu
+		make
+		make all
+		make install
+		make install-plugin
+		make install-daemon
+		make install-daemon-config
+
+	# Copy NRPE Init Script and Make It Executable
+		cp init-script.debian /etc/init.d/nrpe
+		chmod 700 /etc/init.d/nrpe
+
+	# Start the NRPE Daemon
+		/etc/init.d/nrpe start
+
+	# Make NRPE Start at Boot Time
+		update-rc.d nrpe defaults
+		echo ''
+		echo -e '\e[01;37;42mNRPE has been successfully installed!\e[0m'
 }
 function emailNotifications()
 {
- #Install Require Packages
-  echo ''
-  echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
-  echo ''
-  apt-get install -y sendmail-bin sendmail heirloom-mailx
-  echo ''
-  echo -e '\e[01;37;42mThe Rrerequisite Packages for Nagios Notifications were successfully installed!\e[0m'
+	#Install Require Packages
+		echo ''
+		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
+		echo ''
+		apt-get install -y sendmail-bin sendmail heirloom-mailx
+		echo ''
+		echo -e '\e[01;37;42mThe Rrerequisite Packages for Nagios Notifications were successfully installed!\e[0m'
 }
 function webSSL()
 {
- #Make Your Self-signed Certificates
- echo -e '\e[33mChoose your Certificates Name\e[0m'
- read CERT
- mkdir /etc/apache2/ssl
- cd /etc/apache2/ssl
- openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $CERT.key -out $CERT.crt
- a2enmod ssl
+	#Make Your Self-signed Certificates
+	echo -e '\e[33mChoose your Certificates Name\e[0m'
+	read CERT
+	mkdir /etc/apache2/ssl
+	cd /etc/apache2/ssl
+	openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $CERT.key -out $CERT.crt
+	a2enmod ssl
 
- #Configure /etc/apache2/conf.d/nagios.conf
- sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
+	#Configure /etc/apache2/conf.d/nagios.conf
+	sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
 
- #Configure /etc/apache2/sites-available/default
- echo -e '\e[33mChoose your Server Admin Email Address\e[0m'
- read EMAIL
+	#Configure /etc/apache2/sites-available/default
+	echo -e '\e[33mChoose your Server Admin Email Address\e[0m'
+	read EMAIL
 cat <<EOF > /etc/apache2/sites-available/default
 <VirtualHost *:443>
     ServerAdmin $EMAIL
@@ -419,24 +433,24 @@ cat <<EOF > /etc/apache2/sites-available/default
 </VirtualHost>
 EOF
 
- #Make DirectoryRoot Directory
-  mkdir /var/www/$CERT
+	#Make DirectoryRoot Directory
+		mkdir /var/www/$CERT
 
- #Restart Your Apache2 Service
-  service apache2 restart
+	#Restart Your Apache2 Service
+		service apache2 restart
 }
 
 #This Function is Used to Call its Corresponding Function
 function doAll()
 {
     #Calls Function 'nagioscore'
-  echo -e "\e[33m=== Install Nagios Core ? (y/n)\e[0m"
+		echo -e "\e[33m=== Install Nagios Core ? (y/n)\e[0m"
         read yesno
         if [ "$yesno" = "y" ]; then
                 nagiosCore
         fi
 
- #Calls Function 'webUIpassword'
+	#Calls Function 'webUIpassword'
         echo
         echo -e "\e[33m=== Add Nagios Web UI Password ? (y/n)\e[0m"
         read yesno
@@ -444,15 +458,15 @@ function doAll()
                 webUIpassword
         fi
 
- #Calls Function 'nagiosBoot'
- echo
+	#Calls Function 'nagiosBoot'
+	echo
         echo -e "\e[33m=== Start Nagios Server at Boot Time ? (y/n)\e[0m"
         read yesno
         if [ "$yesno" = "y" ]; then
                 nagiosBoot
         fi
 
- #Calls Function 'nagiosPlugin'
+	#Calls Function 'nagiosPlugin'
         echo
         echo -e "\e[33m=== Install the Nagios Plugins ? (y/n)\e[0m"
         read yesno
@@ -460,7 +474,7 @@ function doAll()
                 nagiosPlugin
         fi
 
- #Calls Function 'nrpe'
+	#Calls Function 'nrpe'
         echo
         echo -e "\e[33m=== Install NRPE ? (y/n)\e[0m"
         read yesno
@@ -468,7 +482,7 @@ function doAll()
                 nrpe
         fi
 
- #Calls Function 'emailNotifications'
+	#Calls Function 'emailNotifications'
         echo
         echo -e "\e[33m=== Edit Nagios Email Notification Settings ? (y/n)\e[0m"
         read yesno
@@ -476,16 +490,16 @@ function doAll()
                 emailNotifications
         fi
 
- #Calls Function 'webSSL'
-  echo
+	#Calls Function 'webSSL'
+		echo
         echo -e "\e[33m=== Configure Nagios Web UI to use SSL (HTTPS) ? (y/n)\e[0m"
         read yesno
         if [ "$yesno" = "y" ]; then
                 webSSL
         fi
 
- #End of Script Congratulations, Farewell and Additional Information
-  FARE=$(cat << 'EOD'
+	#End of Script Congratulations, Farewell and Additional Information
+		FARE=$(cat << 'EOD'
 
 
           \e[01;37;42mWell done! You have completed your Nagios Core Installation!\e[0m
@@ -499,10 +513,10 @@ function doAll()
 EOD
 )
 
-  #Calls the End of Script variable
-  echo -e "$FARE"
-  echo
-  echo
+		#Calls the End of Script variable
+		echo -e "$FARE"
+		echo
+		echo
         exit 0
 }
 
