@@ -1,7 +1,9 @@
 #!/bin/bash
 # Nagios Core 4.0.2 Install on Debian Wheezy
 # Author: John McCarthy
-# Date: November 18, 2013
+# <http://www.midactstech.blogspot.com> <https://www.github.com/Midacts>
+# Date: 18th of November, 2013
+# Version 1.0
 #
 # To God only wise, be glory through Jesus Christ forever. Amen.
 # Romans 16:27, I Corinthians 15:1-4
@@ -505,6 +507,7 @@ function doAll()
           \e[01;37;42mWell done! You have completed your Nagios Core Installation!\e[0m
 
              \e[01;37;42mProceed to your Nagios web UI, http://fqdn/nagios\e[0m
+  \e[30;01mCheckout similar material at midactstech.blogspot.com and github.com/Midacts\e[0m           
 
 
                             \e[01;37m########################\e[0m
