@@ -278,6 +278,7 @@ function doAll()
         	fi
 
 	#End of Script Congratulations, Farewell and Additional Information
+		clear
 		FARE=$(cat << 'EOD'
 
 
