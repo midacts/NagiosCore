@@ -8,6 +8,10 @@
 # To God only wise, be glory through Jesus Christ forever. Amen.
 # Romans 16:27, I Corinthians 15:1-4
 #------------------------------------------------------
+######## VARIABLES ########
+nagios_version=4.0.4
+plugin_version=2.0
+nrpe_version=1.5
 ######## FUNCTIONS ########
 function nagiosCore()
 {
@@ -35,14 +39,14 @@ function nagiosCore()
 		echo ''
 		echo -e '\e[01;34m+++ Downloading the Latest Nagios Core files...\e[0m'
 		echo ''
-		wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-4.0.2.tar.gz
+		wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-$nagios_version.tar.gz
 		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully downloaded!\e[0m'
 
 	#Untarring the Nagios Core File
 		echo ''
 		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
-		tar xzf nagios-4.0.2.tar.gz
-		cd nagios-4.0.2
+		tar xzf nagios-$nagios_version.tar.gz
+		cd nagios-$nagios_version
 		echo ''
 		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
 
@@ -320,14 +324,14 @@ function nagiosPlugin()
 		echo ''
         	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
 		echo ''
-        	wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+        	wget https://www.nagios-plugins.org/download/nagios-plugins-$plugin_version.tar.gz
 		echo -e '\e[01;37;42mThe Latest Nagios Plugins have been acquired!\e[0m'
 
 	#Untarring the Nagios Plugin File
 		echo ''
 		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
-		tar xzf nagios-plugins-1.5.tar.gz
-		cd nagios-plugins-1.5
+		tar xzf nagios-plugins-$plugin_version.tar.gz
+		cd nagios-plugins-$plugin_version
 		echo ''
 		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
 
@@ -347,7 +351,7 @@ function nrpe()
 		echo ''
 		echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
 		echo ''
-		wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz
+		wget http://sourceforge.net/projects/nagios/files/nrpe-$nrpe_version.tar.gz
 		echo ''
 		echo -e '\e[01;37;42mThe NRPE installation files were successfully downloaded!\e[0m'
 
@@ -355,8 +359,8 @@ function nrpe()
 		echo ''
 		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
 		echo ''
-		tar xzf nrpe-2.15.tar.gz
-		cd nrpe-2.15
+		tar xzf nrpe-$nrpe_version.tar.gz
+		cd nrpe-$nrpe_version
 		echo ''
 		echo -e '\e[01;37;42mThe NRPE installation files were successfully untarred!\e[0m'
 
