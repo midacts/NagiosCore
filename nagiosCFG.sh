@@ -159,17 +159,17 @@ function nrpe()
 
 	# Make NRPE Start at Boot Time
 		update-rc.d nrpe defaults
-		echo 
+		echo
 		echo -e '\e[01;37;42mNRPE has been successfully installed!\e[0m'
 }
 function emailNotifications()
 {
 	#Install Require Packages
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
-		echo 
+		echo
 		apt-get install -y sendmail-bin sendmail heirloom-mailx
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe Rrerequisite Packages for Nagios Notifications were successfully installed!\e[0m'
 }
 function webSSL()
