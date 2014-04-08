@@ -16,44 +16,44 @@ nrpe_version=1.5
 function nagiosCore()
 {
 	#Add Nagios Users and Groups
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Adding Nagios Users and Groups...\e[0m'
-		echo 
+		echo
 		groupadd -g 9000 nagios
 		groupadd -g 9001 nagcmd
 		useradd -u 9000 -g nagios -G nagcmd -d /usr/local/nagios -c 'Nagios Admin' nagios
 		adduser www-data nagcmd
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe Nagios users and groups have been successfully added!\e[0m'
 
 	#Install Require Packages
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
-		echo 
+		echo
 		apt-get update
 		apt-get install -y apache2 libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
 
 	#Download latest Nagios Core Version (4.0.2)
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Downloading the Latest Nagios Core files...\e[0m'
-		echo 
+		echo
 		wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-$nagios_version.tar.gz
 		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully downloaded!\e[0m'
 
 	#Untarring the Nagios Core File
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
 		tar xzf nagios-$nagios_version.tar.gz
 		cd nagios-$nagios_version
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
 
 	#Configure and Install Nagios Core
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Installing Nagios Core...\e[0m'
-		echo 
+		echo
 		./configure --prefix=/usr/local/nagios --with-nagios-user=nagios --with-nagios-group=nagios --with-command-user=nagios --with-command-group=nagcmd
 		make all
 		make install
@@ -76,72 +76,72 @@ function webUIpassword()
 
 	#Changes the Ownership of the htpasswd.users file
 		chown nagios:nagcmd /usr/local/nagios/etc/htpasswd.users
-		echo 
+		echo
         	echo -e '\e[01;37;42mNagios Web UI Username and password successfully created!\e[0m'
 }
 function nagiosBoot()
 {
 	#Enabling nagios to start at boot time
-		echo 
+		echo
         	echo -e '\e[01;34m+++ Enabling Nagios to Start at boot time...\e[0m'
-        	echo 
+        	echo
 		update-rc.d nagios defaults
 
 	#Restart the Nagios service
 		service nagios restart
-		echo 
+		echo
         	echo -e '\e[01;37;42mNagios has been configured to start at boot time!\e[0m'
 }
 function nagiosPlugin()
 {
 	#Download the Latest Nagios Plugin Files (1.4.16)
-		echo 
+		echo
         	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
-		echo 
+		echo
         	wget https://www.nagios-plugins.org/download/nagios-plugins-$plugin_version.tar.gz
 		echo -e '\e[01;37;42mThe Latest Nagios Plugins have been acquired!\e[0m'
 
 	#Untarring the Nagios Plugin File
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
 		tar xzf nagios-plugins-$plugin_version.tar.gz
 		cd nagios-plugins-$plugin_version
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
 
 	#Configure and Install Nagios Plugins
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Installing Nagios Plugins...\e[0m'
-		echo 
+		echo
 		./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl=/usr/bin/openssl --enable-perl-modules --enable-libtap
 		make
 		make install
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe Nagios Plugins have been successfully installed!\e[0m'
 }
 function nrpe()
 {
 	#Download latest NRPE Files (2.15)
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
-		echo 
+		echo
 		wget http://sourceforge.net/projects/nagios/files/nrpe-$nrpe_version.tar.gz
 
 		echo -e '\e[01;37;42mThe NRPE installation files were successfully downloaded!\e[0m'
 
 	#Untarring the NRPE File
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
 		tar xzf nrpe-$nrpe_version.tar.gz
 		cd nrpe-$nrpe_version
-		echo 
+		echo
 		echo -e '\e[01;37;42mThe NRPE installation files were successfully untarred!\e[0m'
 
 	#Configure and Install NRPE
 	#http://askubuntu.com/questions/133184/nagios-nrpe-installation-errorconfigure-error-cannot-find-ssl-libraries
-		echo 
+		echo
 		echo -e '\e[01;34m+++ Installing NRPE...\e[0m'
-		echo 
+		echo
 		./configure --with-ssl=/usr/bin/openssl --with-ssl-lib=/usr/lib/x86_64-linux-gnu
 		make
 		make all
@@ -285,7 +285,7 @@ function doAll()
           \e[01;37;42mWell done! You have completed your Nagios Core Installation!\e[0m
 
              \e[01;37;42mProceed to your Nagios web UI, http://fqdn/nagios\e[0m
-  \e[30;01mCheckout similar material at midactstech.blogspot.com and github.com/Midacts\e[0m           
+  \e[30;01mCheckout similar material at midactstech.blogspot.com and github.com/Midacts\e[0m
 
 
                             \e[01;37m########################\e[0m
