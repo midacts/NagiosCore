@@ -186,6 +186,7 @@ function webSSL()
 		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
 
 	#Configure /etc/apache2/sites-available/default
+		echo
 		echo -e '\e[33mChoose your Server Admin Email Address\e[0m'
 		read EMAIL
 cat <<EOF > /etc/apache2/sites-available/default
