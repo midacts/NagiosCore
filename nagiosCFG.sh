@@ -9,7 +9,7 @@
 # Romans 16:27, I Corinthians 15:1-4
 #------------------------------------------------------
 ######## VARIABLES ########
-nagios_version=4.0.4
+nagios_version=4.0.5
 plugin_version=2.0
 nrpe_version=1.5
 ######## FUNCTIONS ########
