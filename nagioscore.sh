@@ -104,11 +104,11 @@ function nagiosPlugin()
 
 	#Untarring the Nagios Plugin File
 		echo
-		echo -e '\e[01;34m+++ Untarrring the Nagios Core files...\e[0m'
+		echo -e '\e[01;34m+++ Untarrring the Nagios plugin files...\e[0m'
 		tar xzf nagios-plugins-$plugin_version.tar.gz
 		cd nagios-plugins-$plugin_version
 		echo
-		echo -e '\e[01;37;42mThe Nagios Core installation files were successfully untarred!\e[0m'
+		echo -e '\e[01;37;42mThe Nagios plugin files were successfully untarred!\e[0m'
 
 	#Configure and Install Nagios Plugins
 		echo
