@@ -35,7 +35,7 @@ function nagiosCore()
 		echo
 		echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
 
-	#Download latest Nagios Core Version (4.0.2)
+	#Download latest Nagios Core Version
 		echo
 		echo -e '\e[01;34m+++ Downloading the Latest Nagios Core files...\e[0m'
 		echo
@@ -66,6 +66,7 @@ function nagiosCore()
 function webUIpassword()
 {
 	#Create a user to access the Nagios Web UI
+		echo
         	echo -e '\e[33mChoose your Nagios Web UI Username\e[0m'
 		read webUser
 
@@ -94,7 +95,7 @@ function nagiosBoot()
 }
 function nagiosPlugin()
 {
-	#Download the Latest Nagios Plugin Files (1.4.16)
+	#Download the Latest Nagios Plugin Files
 		echo
         	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
 		echo
@@ -121,7 +122,7 @@ function nagiosPlugin()
 }
 function nrpe()
 {
-	#Download latest NRPE Files (2.15)
+	#Download latest NRPE Files
 		echo
 		echo -e '\e[01;34m+++ Downloading the Latest NRPE files...\e[0m'
 		echo
@@ -175,6 +176,7 @@ function emailNotifications()
 function webSSL()
 {
 	#Make Your Self-signed Certificates
+		echo
 		echo -e '\e[33mChoose your Certificates Name\e[0m'
 		read CERT
 		mkdir /etc/apache2/ssl
