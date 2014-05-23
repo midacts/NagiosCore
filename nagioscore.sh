@@ -9,8 +9,8 @@
 # Romans 16:27, I Corinthians 15:1-4
 #------------------------------------------------------
 ######## VARIABLES ########
-nagios_version=4.0.5
-plugin_version=2.0
+nagios_version=4.0.6
+plugin_version=2.0.1
 nrpe_version=2.15
 ######## FUNCTIONS ########
 function nagiosCore()
@@ -187,11 +187,11 @@ function webSSL()
 	#Configure /etc/apache2/conf.d/nagios.conf
 		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
 
-	#Configure /etc/apache2/sites-available/default
+	#Configure /etc/apache2/sites-available/nagios
 		echo
 		echo -e '\e[33mChoose your Server Admin Email Address\e[0m'
 		read EMAIL
-cat <<EOF > /etc/apache2/sites-available/default
+cat <<EOF > /etc/apache2/sites-available/nagios
 <VirtualHost *:443>
     ServerAdmin $EMAIL
     ServerName $CERT.crt
@@ -215,6 +215,9 @@ cat <<EOF > /etc/apache2/sites-available/default
 </VirtualHost>
 EOF
 
+	# Enable the nagios site
+        	a2ensite nagios
+        
 	#Make DirectoryRoot Directory
 		mkdir /var/www/$CERT
 
