@@ -2,8 +2,8 @@
 # Nagios Core 4.0.5 Install on Debian Wheezy
 # Author: John McCarthy
 # <http://www.midactstech.blogspot.com> <https://www.github.com/Midacts>
-# Date: 12th of April, 2014
-# Version 1.1
+# Date: 23rd of May, 2014
+# Version 1.2
 #
 # To God only wise, be glory through Jesus Christ forever. Amen.
 # Romans 16:27, I Corinthians 15:1-4
