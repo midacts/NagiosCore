@@ -9,8 +9,8 @@
 # Romans 16:27, I Corinthians 15:1-4
 #------------------------------------------------------
 ######## VARIABLES ########
-nagios_version=4.0.6
-plugin_version=2.0.1
+nagios_version=4.0.7
+plugin_version=2.0.2
 nrpe_version=2.15
 ######## FUNCTIONS ########
 function nagiosCore()
@@ -31,7 +31,8 @@ function nagiosCore()
 		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
 		echo
 		apt-get update
-		apt-get install -y apache2 libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
+		apt-get install -y apache2 apache2-utils libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
+		a2enmod cgi
 		echo
 		echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
 
@@ -60,7 +61,9 @@ function nagiosCore()
 		make install-init
 		make install-config
 		make install-commandmode
-		make install-webconf
+		#make install-webconf
+		/usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/conf-available/nagios.conf
+		a2enconf nagios
 		echo -e '\e[01;37;42mNagios Core has been successfully installed!\e[0m'
 }
 function webUIpassword()
@@ -185,7 +188,7 @@ function webSSL()
 		a2enmod ssl
 
 	#Configure /etc/apache2/conf.d/nagios.conf
-		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
+		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf-available/nagios.conf
 
 	#Configure /etc/apache2/sites-available/nagios
 		echo
@@ -203,7 +206,7 @@ cat <<EOF > /etc/apache2/sites-available/nagios
     </Directory>
 
     <Directory /var/www/$CERT>
-        Options -Indexes FollowSymLinks MultiViews
+        Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
@@ -333,7 +336,7 @@ case "$go" in
         ssl)
                 webSSL ;;
         * )
-                        doAll ;;
+                doAll ;;
 esac
 
 exit 0
