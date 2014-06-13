@@ -61,9 +61,7 @@ function nagiosCore()
 		make install-init
 		make install-config
 		make install-commandmode
-		#make install-webconf
-		/usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/conf-available/nagios.conf
-		a2enconf nagios
+		make install-webconf
 		echo -e '\e[01;37;42mNagios Core has been successfully installed!\e[0m'
 }
 function webUIpassword()
@@ -188,7 +186,7 @@ function webSSL()
 		a2enmod ssl
 
 	#Configure /etc/apache2/conf.d/nagios.conf
-		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf-available/nagios.conf
+		sed -i 's/#  SSLRequireSSL/   SSLRequireSSL/g' /etc/apache2/conf.d/nagios.conf
 
 	#Configure /etc/apache2/sites-available/nagios
 		echo
