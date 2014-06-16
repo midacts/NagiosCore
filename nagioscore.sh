@@ -22,6 +22,9 @@ function nagiosCore()
 		groupadd -g 9000 nagios
 		groupadd -g 9001 nagcmd
 		useradd -u 9000 -g nagios -G nagcmd -d /usr/local/nagios -c 'Nagios Admin' nagios
+		chown -R nagios:nagios /usr/local/nagios
+		mkdir -p /usr_local/nagios/var/rw
+		chown -R nagios:nagios /usr_local/nagios/var
 		adduser www-data nagcmd
 		echo
 		echo -e '\e[01;37;42mThe Nagios users and groups have been successfully added!\e[0m'
@@ -96,6 +99,12 @@ function nagiosBoot()
 }
 function nagiosPlugin()
 {
+	#Install Require Packages
+		echo
+		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
+		echo
+		apt-get update
+		apt-get install -y libsnmp libsnmp-dev
 	#Download the Latest Nagios Plugin Files
 		echo
         	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
