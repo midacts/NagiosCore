@@ -105,6 +105,10 @@ function nagiosPlugin()
 		echo
 		apt-get update
 		apt-get install -y libsnmp libsnmp-dev
+		#
+		# To use the check_snmp, MIBS need to be downloaded and installed.
+		# install package snmp-mibs-downloader manually from non-free repo
+		#
 	#Download the Latest Nagios Plugin Files
 		echo
         	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
