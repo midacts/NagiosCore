@@ -22,9 +22,11 @@ function nagiosCore()
 		groupadd -g 9000 nagios
 		groupadd -g 9001 nagcmd
 		useradd -u 9000 -g nagios -G nagcmd -d /usr/local/nagios -c 'Nagios Admin' nagios
+		adduser www-data nagios
 		chown -R nagios:nagios /usr/local/nagios
 		mkdir -p /usr_local/nagios/var/rw
-		chown -R nagios:nagios /usr_local/nagios/var
+		chown nagios:nagios /usr_local/nagios/var
+		chown nagios:www-data /usr_local/nagios/var/rw
 		adduser www-data nagcmd
 		echo
 		echo -e '\e[01;37;42mThe Nagios users and groups have been successfully added!\e[0m'
