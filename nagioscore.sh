@@ -9,8 +9,8 @@
 # Romans 16:27, I Corinthians 15:1-4
 #------------------------------------------------------
 ######## VARIABLES ########
-nagios_version=4.0.6
-plugin_version=2.0.1
+nagios_version=4.0.7
+plugin_version=2.0.2
 nrpe_version=2.15
 ######## FUNCTIONS ########
 function nagiosCore()
@@ -22,6 +22,11 @@ function nagiosCore()
 		groupadd -g 9000 nagios
 		groupadd -g 9001 nagcmd
 		useradd -u 9000 -g nagios -G nagcmd -d /usr/local/nagios -c 'Nagios Admin' nagios
+		adduser www-data nagios
+		chown -R nagios:nagios /usr/local/nagios
+		mkdir -p /usr_local/nagios/var/rw
+		chown nagios:nagios /usr_local/nagios/var
+		chown nagios:www-data /usr_local/nagios/var/rw
 		adduser www-data nagcmd
 		echo
 		echo -e '\e[01;37;42mThe Nagios users and groups have been successfully added!\e[0m'
@@ -31,7 +36,8 @@ function nagiosCore()
 		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
 		echo
 		apt-get update
-		apt-get install -y apache2 libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
+		apt-get install -y apache2 apache2-utils libapache2-mod-php5 build-essential libgd2-xpm-dev libssl-dev
+		a2enmod cgi
 		echo
 		echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
 
@@ -95,6 +101,16 @@ function nagiosBoot()
 }
 function nagiosPlugin()
 {
+	#Install Require Packages
+		echo
+		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
+		echo
+		apt-get update
+		apt-get install -y libsnmp libsnmp-dev
+		#
+		# To use the check_snmp, MIBS need to be downloaded and installed.
+		# install package snmp-mibs-downloader manually from non-free repo
+		#
 	#Download the Latest Nagios Plugin Files
 		echo
         	echo -e '\e[01;34m+++ Downloading the Nagios Plugin Files...\e[0m'
@@ -203,7 +219,7 @@ cat <<EOF > /etc/apache2/sites-available/nagios
     </Directory>
 
     <Directory /var/www/$CERT>
-        Options -Indexes FollowSymLinks MultiViews
+        Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
@@ -333,7 +349,7 @@ case "$go" in
         ssl)
                 webSSL ;;
         * )
-                        doAll ;;
+                doAll ;;
 esac
 
 exit 0
