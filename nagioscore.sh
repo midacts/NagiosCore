@@ -9,8 +9,8 @@
 # Romans 16:27, I Corinthians 15:1-4
 #------------------------------------------------------
 ######## VARIABLES ########
-nagios_version=4.0.7
-plugin_version=2.0.2
+nagios_version=4.4.3
+plugin_version=2.2.1
 nrpe_version=2.15
 ######## FUNCTIONS ########
 function nagiosCore()
