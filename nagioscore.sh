@@ -11,7 +11,7 @@
 ######## VARIABLES ########
 nagios_version=4.4.3
 plugin_version=2.2.1
-nrpe_version=2.15
+nrpe_version=3.2.1
 ######## FUNCTIONS ########
 function nagiosCore()
 {
