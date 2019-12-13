@@ -36,7 +36,7 @@ function nagiosCore()
 		echo -e '\e[01;34m+++ Installing Prerequisite Packages...\e[0m'
 		echo
 		apt-get update
-		apt-get install -y apache2 apache2-utils libapache2-mod-php7.3 build-essential libgd2-xpm-dev libssl-dev unzip gcc make
+		apt-get install -y apache2 apache2-utils libapache2-mod-php7.3 build-essential libssl-dev unzip gcc make
 		a2enmod cgi
 		echo
 		echo -e '\e[01;37;42mThe Prerequisite Packages were successfully installed!\e[0m'
